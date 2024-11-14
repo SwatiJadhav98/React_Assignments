@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian State and City Dropdown</title>
+    <script src="jquery-3.7.1.min.js"></script>
+    <style>
+        body {
+            text-align: center;
+            background-color: beige;
+            margin-top: 200px;
+            margin-left: 300px;
+            color: white;
+        }
+
+        #maindiv {
+            background-color: rgb(98, 127, 128);
+            margin: 20px;
+            padding: 50px;
+            height: 100%;
+            width: 70%;
+            vertical-align: middle;
+        }
+
+        table {
+
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        table tr td {
+            /* width: 50%; */
+            height: 50%;
+            text-align: center;
+            vertical-align: text-top;
+            padding: 5px;
+        }
+
+        #cities {
+            vertical-align: text-top;
+            width: 150px;
+        }
+
+        #states {
+            vertical-align: text-top;
+            width: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="maindiv">
+        <h1>SELECT STATE AND CITY FROM STATE </h1>
+        <table align="center">
+            <tr>
+                <td>
+                    <label for="states" text-align="center">STATE </label>
+                </td>
+                <td> : </td>
+                <td>
+                    <select id="states">
+                        <option value="">Select a STATE</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="AndhraPradesh">AndhraPradesh</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                    </select><br><br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="cities" text-align="center">CITY </label>
+                </td>
+                <td> : </td>
+                <td>
+                    <select id="cities">
+                        <option value="">Select a CITY </option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        $(document).ready(function () {
+            var citiesByState = {
+                'Gujarat': ['Ahmedabad', 'Surat', 'Vadodara'],
+                'Maharashtra': ['Mumbai', 'Pune', 'Nagpur'],
+                'AndhraPradesh': ['Bapatala', 'Prakasam', 'Tirupati']
+            };
+
+            $("#states").change(function () {
+                var selectedState = $(this).val();
+                var citiesDropdown = $("#cities");
+                citiesDropdown.empty();
+
+                citiesDropdown.append('<option value="">Select a city</option>');
+
+                if (selectedState) {
+                    var cities = citiesByState[selectedState];
+                    $.each(cities, function (index, city) {
+                        citiesDropdown.append('<option value="' + city.toLowerCase() + '">' + city + '</option>');
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
