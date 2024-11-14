@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Validation</title>
+    <script src="jquery-3.7.1.min.js"></script>
+    <style>
+        body{
+            margin-top: 100px;
+            background-color: rgb(171, 200, 201);
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+        table {
+            background-color: rgb(243, 220, 220);
+            padding: 30px;  
+            width: 50%;
+            height: 100%;
+            border:  1px solid rgb(243, 220, 220);;
+            text-align: left;
+
+        }
+        table tr td{
+            /* border: 1px solid black; */
+            padding-top:20px;
+        }
+        #btntd{
+            text-align: center;
+        }
+        button {
+            background-color: green;
+            color: white;
+            width : 100px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body align="center">
+    <h2> FORM VALIDATION</h2>
+    <form id="myForm">
+        <table align="center">
+            <tr>
+                <td> <label for="name">Enter Name </label> </td>
+                <td>: </td>
+                <td> <input type="text" id="name" name="name"> </td>
+                <td> <span id="nameError" class="error"></span> </td>
+            </tr>
+            <tr>
+                <td> <label for="email">Enter Email </label> </td>
+                <td>: </td>
+                <td> <input type="text" id="email" name="email"> </td>
+                <td> <span id="emailError" class="error"></span> </td>
+            </tr>
+            <tr>
+                <td> <label for="phone">Enter Phone </label> </td>
+                <td>: </td>
+                <td>  <input type="text" id="phone" name="phone"> </td>
+                <td> <span id="phoneError" class="error"></span></td>
+            </tr>
+            <tr>
+                <td> <label for="password">Enter Password </label> </td>
+                <td>: </td>
+                <td> <input type="password" id="password" name="password"> </td>
+                <td> <span id="passwordError" class="error"></span> </td>
+            </tr>
+            <tr>
+                <td colspan = "4" id="btntd"> <button type="submit">SUBMIT</button></td>
+            </tr>
+        </table>    
+    </form>
+
+    <script>
+        $(document).ready(function() {
+            $("#myForm").on("submit", function(e) {
+                var name = $("#name").val().trim();
+                var email = $("#email").val().trim();
+                var phone = $("#phone").val().trim();
+                var password = $("#password").val().trim();
+                var isValid = true; 
+
+                $(".error").text("");
+
+                if (name === "") {
+                    e.preventDefault();
+                    $("#nameError").text("Name is required.");
+                    isValid = false;
+                }
+
+                var emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,6}$/;
+                if (email === "") {
+                    e.preventDefault();
+                    $("#emailError").text("Email is required.");
+                    isValid = false;
+                } else if (!emailPattern.test(email)) {
+                    e.preventDefault();
+                    $("#emailError").text("Please enter a valid email address.");
+                    isValid = false;
+                }
+
+                if (phone === "") {
+                    e.preventDefault();
+                    $("#phoneError").text("Phone number is required.");
+                    isValid = false;
+                } else if (!/^\d{10}$/.test(phone)) {
+                    e.preventDefault();
+                    $("#phoneError").text("Phone number must be 10 digits.");
+                    isValid = false;
+                }
+
+                if (password === "") {
+                    e.preventDefault();
+                    $("#passwordError").text("Password is required.");
+                    isValid = false;
+                } else if (password.length < 6) {
+                    e.preventDefault();
+                    $("#passwordError").text("Password must be at least 6 characters long.");
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    alert("Form submitted successfully!");
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form</title>
+    <script src="jquery-3.7.1.min.js"></script>
+    <style>
+        body{
+            font-family: 'Times New Roman', Times, serif;
+            font-size: medium;
+            background-color: antiquewhite;
+        }
+
+        h2{
+            text-align: center;
+        }
+        
+        form{
+            color:white;
+            background-color:cadetblue;
+            width: 50%;
+            border: 1px solid silver;
+            flex-direction: column;
+            display: flex;
+            margin: 10px auto;
+        }
+
+        input,label{
+            padding: 10px 10px;
+            box-sizing: border-box;
+            margin: 0px 5px;
+            outline: none;
+            margin-bottom: 10px;
+            
+        }
+        label {
+            font-weight: bolder;
+            font-size: larger;
+        }
+        button{
+            padding: 10px;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin: 0px 5px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            font-size: larger;
+        }
+    </style>
+</head>
+<body>
+    <form id="myform">
+        <h2>VALIDATION FORM</h2>
+
+        <label for="name">NAME</label>
+        <input type="text" name="name" id="name" placeholder="Enter name">
+
+        <label for="email">EMAIL ID</label>
+        <input type="text" name="email" id="email" placeholder="Enter email">
+        
+        <button>SUBMIT</button>
+        <script>
+           $(document).ready(function(){
+                $("#myform").on('submit',function(){
+                 
+                    var name = $("#name").val().trim();      
+                    if(name === ''){
+                        alert("name is required!!");
+                        return;
+                    }
+
+                    var email = $("#email").val().trim();
+                    var pattern = /^[^ ]+@[^ ]+\.[a-z]{2,6}$/;
+                    if(email === ''){
+                        alert("email is require!!!");
+                        return;
+                    } else if(!pattern.test(email)){
+                        alert("Please enter a valid email address!");
+                        return;
+                    }
+                    alert("name : " + name + "\nEmail : " + email);
+                });
+           });
+        </script>
+    </form>
+</body>
+</html>
